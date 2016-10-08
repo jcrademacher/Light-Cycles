@@ -9,8 +9,6 @@ import java.util.*;
 public class ComputerPlayer extends Player {
 
     private Random rand = new Random();
-    private int when = 0;
-    private int turnDelay = 3;
 
     private Player p1;
     private Player p2;
