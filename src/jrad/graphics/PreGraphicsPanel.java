@@ -15,7 +15,7 @@ public class PreGraphicsPanel extends JPanel {
 
     private int numPlayers;
 
-    // default constructor
+    // default constructor to init class
     public PreGraphicsPanel(int numPlayers) {
         this.numPlayers = numPlayers;
 
