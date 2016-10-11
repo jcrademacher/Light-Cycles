@@ -25,10 +25,8 @@ public class SinglePlayerMain extends MouseAdapter implements ActionListener {
 
     private int numPlayers = 2;
 
-    private boolean musicOn = true;
-
-    public SinglePlayerMain() {
-        singleframe = new JFrame("Singleplayer");
+    public SinglePlayerMain(JFrame previousFrame) {
+        singleframe = previousFrame;
         screen = new JPanel();
         graphics = new PreGraphicsPanel(numPlayers);
 
@@ -41,16 +39,15 @@ public class SinglePlayerMain extends MouseAdapter implements ActionListener {
         // sets up all UI elements
         createAndShowGUI();
 
-        // technical stuff...
-        singleframe.setResizable(false);
-        singleframe.setSize(1000,625);
-        singleframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         // adds to screen
         graphics.add(screen);
+        singleframe.invalidate();
         singleframe.setContentPane(graphics);
+        singleframe.setResizable(false);
+        singleframe.setSize(1000,625);
+        singleframe.setLocation(200,100);
+        singleframe.revalidate();
 
-        singleframe.setVisible(true);
     }
 
     public void createAndShowGUI() {

@@ -42,17 +42,8 @@ public class ComputerPlayer extends Player {
 
         boolean cellAheadOccupied = isOccupied(bikeX,bikeY,bikeDir);
 
-        boolean rightPref = false;
-        boolean leftPref = false;
-
-        // if bike is within a 10x10 square of goal, no need to turn anymore
-        if(Math.abs(bikeX - goalX) < 10 && Math.abs(bikeY - goalY) < 10) {
-
-            goalX = rand.nextInt(900) + 20;
-            goalY = rand.nextInt(700) + 20;
-
-            System.out.println(color + ": " + goalX + ", " + goalY);
-        }
+        boolean rightPref = true;
+        boolean leftPref = true;
 
         super.move(g);
 
@@ -164,7 +155,7 @@ public class ComputerPlayer extends Player {
                 turnLeftCapable = !isOccupied(bikeX,bikeY,4);
 
                 // testing if turning left or right will result in more room to play
-                for(int y = 2; y < 400; y++) {
+                for(int y = 2; y < 200; y++) {
                     if(isOccupied(bikeX,bikeY - y,2)) {
                         rightPref = false;
                         leftPref = true;
@@ -215,7 +206,7 @@ public class ComputerPlayer extends Player {
                 turnLeftCapable = !isOccupied(bikeX,bikeY,1);
 
                 // testing if turning left or right will result in more room to play
-                for(int x = 2; x < 400; x++) {
+                for(int x = 2; x < 200; x++) {
                     if(isOccupied(bikeX - x,bikeY,3)) {
                         rightPref = false;
                         leftPref = true;

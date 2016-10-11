@@ -15,7 +15,7 @@ public class Music {
     public static void load(String file) {
 
         // playing sound file, gets audio input stream, starts reading
-        try {
+        /*try {
             AudioInputStream audioInputStream =
                     AudioSystem.getAudioInputStream(new File(file).getAbsoluteFile());
             music = AudioSystem.getClip();
@@ -24,16 +24,16 @@ public class Music {
         } catch(Exception ex) {
             System.out.println("Error with loading sound.");
             ex.printStackTrace();
-        }
+        }*/
     }
 
     public static void start() {
-        if(musicOn)
-            music.start();
+        /*if(musicOn)
+            music.start();*/
     }
 
     public static void stop() {
-        music.stop();
+        //music.stop();
     }
 
     public static void setOn(boolean on) {
