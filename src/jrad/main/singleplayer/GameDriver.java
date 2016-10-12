@@ -86,7 +86,7 @@ public class GameDriver {
 
         Thread gameThread = new Thread(run);
 
-        gameTimer = new Timer(20,game);
+        gameTimer = new Timer(25,game);
         gameTimer.addActionListener(game);
 
       /*

@@ -140,14 +140,14 @@ public class Main extends MouseAdapter implements ActionListener {
         }
         else if(src.equals(settings)) {
             mainframe.invalidate();
-            JScrollPane s = new JScrollPane(new InfoPanel(InfoPanel.SETTINGS));
-            mainframe.setContentPane(s);
+            InfoPanel i = new InfoPanel(InfoPanel.SETTINGS);
+            mainframe.setContentPane(i);
             mainframe.revalidate();
         }
         else if(src.equals(about)) {
             mainframe.invalidate();
-            InfoPanel s = new InfoPanel(InfoPanel.ABOUT);
-            mainframe.setContentPane(s);
+            InfoPanel i = new InfoPanel(InfoPanel.ABOUT);
+            mainframe.setContentPane(i);
             mainframe.revalidate();
         }
     }
