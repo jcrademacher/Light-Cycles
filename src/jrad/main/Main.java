@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 
 import jrad.util.*;
 import jrad.main.singleplayer.*;
@@ -15,21 +18,30 @@ import jrad.main.multiplayer.*;
  */
 public class Main extends MouseAdapter implements ActionListener {
 
-    JFrame mainframe = new JFrame("Light Cycles");
-    Background screen = new Background();
+    private JFrame mainframe = new JFrame("Light Cycles");
+    private Background screen = new Background();
 
-    JButton single = new JButton("Singleplayer");
-    JButton multi = new JButton("Multiplayer");
-    JButton quit = new JButton("Quit");
-    JButton howToPlay = new JButton("How to Play");
-    JButton settings = new JButton("Settings");
-    JButton about = new JButton("About");
+    private JButton single = new JButton("Singleplayer");
+    private JButton multi = new JButton("Multiplayer");
+    private JButton quit = new JButton("Quit");
+    private JButton howToPlay = new JButton("How to Play");
+    private JButton settings = new JButton("Settings");
+    private JButton about = new JButton("About");
+
+    private boolean musicOn;
+    private int frameInterval;
+    private int aiDifficulty;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
+                Utility.initFiles();
+                Utility.importSettings();
+
                 Music.load("assets/endofline.wav");
-                Music.start();
+                if(Utility.isMusicOn()) {
+                    Music.start();
+                }
                 new Main(); // so as to not reference from static context
             }
         });

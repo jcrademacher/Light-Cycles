@@ -1,6 +1,7 @@
 package jrad.main;
 
 import jrad.util.Music;
+import jrad.util.Utility;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -87,6 +88,21 @@ public class InfoPanel extends JPanel implements ActionListener, MouseListener, 
         formatComponent(speedWarning, 15);
         formatComponent(aiLabel, 20);
 
+        gameSpeed.setValue(Utility.getFrameInterval());
+        speedValue.setText(Integer.toString(Utility.getFrameInterval()));
+
+        if(Utility.getAiDifficulty() == Utility.AI_EASY)
+            aiDifficulty.setSelectedItem("Worst");
+        else if(Utility.getAiDifficulty() == Utility.AI_MEDIUM)
+            aiDifficulty.setSelectedItem("Good");
+        else if(Utility.getAiDifficulty() == Utility.AI_HARD)
+            aiDifficulty.setSelectedItem("Best");
+
+        if(Utility.isMusicOn())
+            music.setText("Music On");
+        else
+            music.setText("Music Off");
+
         gameSpeed.addChangeListener(this);
 
         gameSpeedPane.add(gameSpeedLabel);
@@ -111,7 +127,6 @@ public class InfoPanel extends JPanel implements ActionListener, MouseListener, 
     private void initAbout() {
         String msg1 = "A recreation of the arcade game \"Tron\"";
         String msg2 = "Created by Jack Rademacher - April 2016";
-        String link = "View source here";
 
         JLabel title = new JLabel("Light Cycles");
         formatComponent(title, 40);
@@ -154,6 +169,18 @@ public class InfoPanel extends JPanel implements ActionListener, MouseListener, 
 
         if(src.equals(back)) {
             JFrame frame = (JFrame)SwingUtilities.getWindowAncestor(this);
+
+            Utility.setMusicOn(music.getText().equals("Music On"));
+            Utility.setFrameInterval(gameSpeed.getValue());
+
+            if(aiDifficulty.getSelectedItem().equals("Worst"))
+                Utility.setAiDifficulty(Utility.AI_EASY);
+            else if(aiDifficulty.getSelectedItem().equals("Good"))
+                Utility.setAiDifficulty(Utility.AI_MEDIUM);
+            else if(aiDifficulty.getSelectedItem().equals("Best"))
+                Utility.setAiDifficulty(Utility.AI_HARD);
+
+            Utility.writeSettings();
 
             frame.setVisible(false);
             new Main();
