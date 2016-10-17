@@ -35,11 +35,10 @@ public class GameDriver {
         this.gameType = gameType;
 
         // test case for singleplayer vs. multiplayer games
-        if(gameType.equals("singleplayer")) {
+        if (gameType.equals("singleplayer")) {
             game = new Game(numPlayers, "singleplayer", players);
             gameframe.setContentPane(game);
-        }
-        else {
+        } else {
             game = new MultiGame(numPlayers, players, p2, p3, p4);
             //splash = new MultiGameSplash("server");
             //gameframe.setContentPane(splash);
@@ -47,11 +46,12 @@ public class GameDriver {
         }
 
         // same as in Main, except derezzed song plays
-        Music.load("assets/derezzed.wav");
-        Music.start();
+        if (Utility.isMusicOn()) {
+            Music.load("assets/derezzed.wav");
+            Music.start();
+        }
 
         menuBar.add(lightCycles);
-
         gameframe.setJMenuBar(menuBar);
 
         // formatting stuff
@@ -62,7 +62,7 @@ public class GameDriver {
         game.setOpaque(false);
     }
 
-    // begins game, timer starts firing actionPerformed method at specified (millis) interval
+    // begins game, timer starts firing actionPerformed method
     // inherently creates own thread as well
     public void begin() {
         Runnable run = new Runnable() {
@@ -86,7 +86,7 @@ public class GameDriver {
 
         Thread gameThread = new Thread(run);
 
-        gameTimer = new Timer(25,game);
+        gameTimer = new Timer(Utility.getFrameInterval(),game);
         gameTimer.addActionListener(game);
 
       /*
