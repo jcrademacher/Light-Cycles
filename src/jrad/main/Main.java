@@ -28,26 +28,23 @@ public class Main extends MouseAdapter implements ActionListener {
     private JButton settings = new JButton("Settings");
     private JButton about = new JButton("About");
 
-    private boolean musicOn;
-    private int frameInterval;
-    private int aiDifficulty;
-
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Utility.initFiles();
                 Utility.importSettings();
 
+                // more technical stuff
                 Music.load("assets/endofline.wav");
                 if(Utility.isMusicOn()) {
                     Music.start();
                 }
+
                 new Main(); // so as to not reference from static context
             }
         });
     }
 
-    // more technical stuff
     public Main() {
         screen.setLayout(new BoxLayout(screen, BoxLayout.Y_AXIS));
 
@@ -141,8 +138,10 @@ public class Main extends MouseAdapter implements ActionListener {
             new MultiPlayerMain();
             mainframe.dispose();
         }
-        else if(src.equals(quit))
+        else if(src.equals(quit)) {
+            Music.stop();
             mainframe.dispose();
+        }
         else if(src.equals(howToPlay)) {
             mainframe.invalidate();
             JScrollPane s = new JScrollPane(new InfoPanel(InfoPanel.HOWTOPLAY));

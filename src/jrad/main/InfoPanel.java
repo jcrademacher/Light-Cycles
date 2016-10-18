@@ -159,7 +159,7 @@ public class InfoPanel extends JPanel implements ActionListener, MouseListener, 
         if(c instanceof JButton) {
             ((JButton) c).setBorderPainted(false);
             ((JButton) c).addActionListener(this);
-            c.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            c.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
         }
     }
 
@@ -170,15 +170,17 @@ public class InfoPanel extends JPanel implements ActionListener, MouseListener, 
         if(src.equals(back)) {
             JFrame frame = (JFrame)SwingUtilities.getWindowAncestor(this);
 
-            Utility.setMusicOn(music.getText().equals("Music On"));
-            Utility.setFrameInterval(gameSpeed.getValue());
+            if(this.panelType.equals(this.SETTINGS)) {
+                Utility.setMusicOn(music.getText().equals("Music On"));
+                Utility.setFrameInterval(gameSpeed.getValue());
 
-            if(aiDifficulty.getSelectedItem().equals("Worst"))
-                Utility.setAiDifficulty(Utility.AI_EASY);
-            else if(aiDifficulty.getSelectedItem().equals("Good"))
-                Utility.setAiDifficulty(Utility.AI_MEDIUM);
-            else if(aiDifficulty.getSelectedItem().equals("Best"))
-                Utility.setAiDifficulty(Utility.AI_HARD);
+                if (aiDifficulty.getSelectedItem().equals("Worst"))
+                    Utility.setAiDifficulty(Utility.AI_EASY);
+                else if (aiDifficulty.getSelectedItem().equals("Good"))
+                    Utility.setAiDifficulty(Utility.AI_MEDIUM);
+                else if (aiDifficulty.getSelectedItem().equals("Best"))
+                    Utility.setAiDifficulty(Utility.AI_HARD);
+            }
 
             Utility.writeSettings();
 

@@ -1,15 +1,20 @@
 package jrad.main.singleplayer;
 
 import javax.swing.*;
+
+import jrad.main.Main;
 import jrad.util.*;
 import jrad.player.*;
 import jrad.net.*;
 import jrad.main.multiplayer.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * Created by jackrademacher on 10/5/16.
  */
-public class GameDriver {
+public class GameDriver implements ActionListener {
 
     private JFrame gameframe;
     private Game game;
@@ -20,6 +25,7 @@ public class GameDriver {
 
     private JMenuBar menuBar = new JMenuBar();
     private JMenu lightCycles = new JMenu("Light Cycles");
+    private JMenuItem mainMenu = new JMenuItem("Main Menu");
 
     private String gameType;
 
@@ -51,6 +57,9 @@ public class GameDriver {
             Music.start();
         }
 
+        mainMenu.addActionListener(this);
+
+        lightCycles.add(mainMenu);
         menuBar.add(lightCycles);
         gameframe.setJMenuBar(menuBar);
 
@@ -80,6 +89,8 @@ public class GameDriver {
                         gameTimer.start();
                     }
                 }
+
+                Music.stop();
                 gameframe.dispose();
             }
         };
@@ -100,5 +111,24 @@ public class GameDriver {
 
         gameTimer.start();
         gameThread.start();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
+
+        if(src.equals(mainMenu)) {
+            gameframe.setVisible(false);
+            Music.stop();
+
+            Music.load("assets/endofline.wav");
+            if(Utility.isMusicOn()) {
+                Music.start();
+            }
+
+            gameframe.dispose();
+
+            new Main();
+        }
     }
 }

@@ -19,8 +19,8 @@ public class Music {
             AudioInputStream audioInputStream =
                     AudioSystem.getAudioInputStream(new File(file).getAbsoluteFile());
             music = AudioSystem.getClip();
-            music.loop(5);
             music.open(audioInputStream);
+
         } catch(Exception ex) {
             System.out.println("Error with loading sound.");
             ex.printStackTrace();
@@ -28,8 +28,9 @@ public class Music {
     }
 
     public static void start() {
-        if(musicOn)
-            music.start();
+        if(musicOn) {
+            music.loop(Clip.LOOP_CONTINUOUSLY);
+        }
     }
 
     public static void stop() {
